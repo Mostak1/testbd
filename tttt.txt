@@ -1,0 +1,15 @@
+INSERT INTO `boards`(`name`, `url`) VALUES 
+('Barisal','http://www.barisalboard.gov.bd/'),
+('Chattogram','https://web.bise-ctg.gov.bd/bisectg'),
+('Cumilla','https://web.comillaboard.gov.bd/bisecb'),
+('Dhaka','https://dhakaeducationboard.gov.bd/'),
+('Dinajpur','http://dinajpureducationboard.gov.bd/'),
+('Jessore','https://www.jessoreboard.gov.bd/'),
+('Mymensingh','https://mymensingheducationboard.gov.bd/'),
+('Rajshahi','http://rajshahieducationboard.gov.bd/'),
+('Sylhet','https://sylhetboard.gov.bd/');
+
+
+UPDATE `districts` SET `division_id`='5' WHERE `division_id`=7;
+
+UPDATE `districts` SET `division_id`='4' WHERE `id` IN (40,41,42,43,44,45,46,47,48,49,50,51,52);
