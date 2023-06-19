@@ -63,7 +63,12 @@
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <?= anchor("admin/category", "Category", ['class' => 'nav-link']) ?>
+                                <?= anchor("admin/boards", "Boards", ['class' => 'nav-link']) ?>
+                                <?= anchor("admin/districts", "Districts", ['class' => 'nav-link']) ?>
+                                <?= anchor("admin/thana", "Thana", ['class' => 'nav-link']) ?>
+                                <?= anchor("admin/institutes", "Institutes", ['class' => 'nav-link']) ?>
+                                <?= anchor("admin/exams", "Exams", ['class' => 'nav-link']) ?>
+                                <?= anchor("admin/questions", "Questions", ['class' => 'nav-link']) ?>
                                 <?= anchor("admin/subject", "Subjects", ['class' => 'nav-link']) ?>
 
                             </nav>

@@ -13,3 +13,13 @@ INSERT INTO `boards`(`name`, `url`) VALUES
 UPDATE `districts` SET `division_id`='5' WHERE `division_id`=7;
 
 UPDATE `districts` SET `division_id`='4' WHERE `id` IN (40,41,42,43,44,45,46,47,48,49,50,51,52);
+
+INSERT INTO `thana`(`id`, `district_id`, `name`, `bn_name`, `url`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]')
+
+INSERT INTO `institutes`(`id`, `thana_id`, `name`, `url`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]')
+
+INSERT INTO `exams`(`id`, `exam_name`, `created_at`) VALUES
+
+INSERT INTO `questions`(`id`, `subject_id`, `board_id`, `zilla_id`, `thana_id`, `institute_id`, `year`, `q_image`, `created_at`) 
+
+INSERT INTO `users`(`id`, `name`, `email`, `mobile`, `password`, `role`, `created_at`)

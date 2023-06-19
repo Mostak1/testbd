@@ -5,7 +5,7 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use CodeIgniter\API\ResponseTrait;
 
-class UsersController extends BaseController
+class BoardsController extends BaseController
 {
     use ResponseTrait;
     protected $db;
@@ -19,12 +19,12 @@ class UsersController extends BaseController
     {
 
         //echo BASESEURL . "<hr>";
-        $builder = $this->db->table('users');
+        $builder = $this->db->table('boards');
 
         $data = $builder->get()->getResultArray();
         // dd($data);
 
-        return view("admin/users", [
+        return view("admin/boards", [
             'subcats' => $data,
             'security' => $this->security
         ]);
@@ -40,7 +40,7 @@ class UsersController extends BaseController
     {
 
         //echo BASESEURL . "<hr>";
-        $builder = $this->db->table('users');
+        $builder = $this->db->table('boards');
         $data = $builder->get()->getResultArray();
         // dd($data);
         return $this->respond($data, 200);
@@ -49,18 +49,16 @@ class UsersController extends BaseController
     public function create()
     {
         $request = request();
-        //return $this->respond($_POST,200);
+        //return $this->respond($_POST,200); boards id,name,url
         $data = [
             'name' => $request->getPost('name'),
-            'email' => $request->getPost('email'),
-            'mobile' => $request->getPost('mobile'),
-            'role' => $request->getPost('role'),
+            'url' => $request->getPost('url'),
         ];
         if ($request->getPost('id') != "") {
             $data['id'] = $request->getPost('id');
         }
 
-        $builder = $this->db->table('users');
+        $builder = $this->db->table('boards');
         $builder->upsert($data);
         // $this->db
         // ->table('subjects')
@@ -75,7 +73,7 @@ class UsersController extends BaseController
     {
         $request = request();
         $id = $request->getPost('id');
-        $builder = $this->db->table('users');
+        $builder = $this->db->table('boards');
         if ($builder->delete(['id' => $id])) {
             return $this->respond([
                 'success' => true,

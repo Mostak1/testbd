@@ -33,11 +33,46 @@ $routes->set404Override();
 $routes->get('admin/dashboard', 'Admin\DashboardController::index');
 
 $routes->get('admin/subject', 'Admin\SubjectsController::index');
-$routes->get('subcategory/page/(:num)', 'Admin\SubjectsController::getPaginatedData/$1');
 $routes->get('admin/subject/all', 'Admin\SubjectsController::all');
 $routes->post('admin/subject/new', 'Admin\SubjectsController::create');
 $routes->post('admin/subject/delete', 'Admin\SubjectsController::delete');
 
+$routes->get('admin/boards', 'Admin\BoardsController::index');
+$routes->get('admin/boards/all', 'Admin\BoardsController::all');
+$routes->post('admin/boards/new', 'Admin\BoardsController::create');
+$routes->post('admin/boards/delete', 'Admin\BoardsController::delete');
+
+$routes->get('admin/districts', 'Admin\DistrictsController::index');
+$routes->get('admin/districts/all', 'Admin\DistrictsController::all');
+$routes->post('admin/districts/new', 'Admin\DistrictsController::create');
+$routes->post('admin/districts/delete', 'Admin\DistrictsController::delete');
+
+
+$routes->get('admin/thana', 'Admin\ThanaController::index');
+$routes->get('admin/thana/all', 'Admin\ThanaController::all');
+$routes->post('admin/thana/new', 'Admin\ThanaController::create');
+$routes->post('admin/thana/delete', 'Admin\ThanaController::delete');
+
+
+$routes->get('admin/institutes', 'Admin\InstitutesController::index');
+$routes->get('admin/institutes/all', 'Admin\InstitutesController::all');
+$routes->post('admin/institutes/new', 'Admin\InstitutesController::create');
+$routes->post('admin/institutes/delete', 'Admin\InstitutesController::delete');
+
+$routes->get('admin/exams', 'Admin\ExamsController::index');
+$routes->get('admin/exams/all', 'Admin\ExamsController::all');
+$routes->post('admin/exams/new', 'Admin\ExamsController::create');
+$routes->post('admin/exams/delete', 'Admin\ExamsController::delete');
+
+$routes->get('admin/users', 'Admin\UsersController::index');
+$routes->get('admin/users/all', 'Admin\UsersController::all');
+$routes->post('admin/users/new', 'Admin\UsersController::create');
+$routes->post('admin/users/delete', 'Admin\UsersController::delete');
+
+$routes->get('admin/questions', 'Admin\QuestionsController::index');
+$routes->get('admin/questions/all', 'Admin\QuestionsController::all');
+$routes->post('admin/questions/new', 'Admin\QuestionsController::create');
+$routes->post('admin/questions/delete', 'Admin\QuestionsController::delete');
 
 
 
