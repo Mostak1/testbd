@@ -49,10 +49,14 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <?php
-                            if (session()->get("logged_in")) {
+                            if (session()->get("logged_in") && session()->get("role") == 2) {
                             ?>
                                 <li><?= anchor("profile", "Profile", ['class' => "dropdown-item"]) ?></li>
+                                <li><?= anchor("admin/dashboard", "Dashboard", ['class' => "dropdown-item", 'target' => "_blank"]) ?></li>
                                 <li><?= anchor("logout", "Logout", ['class' => "dropdown-item"]) ?></li>
+                            <?php
+                            } elseif (session()->get("logged_in")) {
+                            ?>
                             <?php
 
                             } else {

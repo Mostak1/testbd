@@ -22,9 +22,28 @@ class QuestionsController extends BaseController
 
         $data = $builder->get()->getResultArray();
         // dd($data);
-
+        $subject = $this->db
+            ->table('subjects')
+            ->select('id, subject')
+            ->get()->getResultArray();
+        $board = $this->db
+            ->table('boards')
+            ->select('id, name')
+            ->get()->getResultArray();
+        $query = $this->db->table('questions')
+            ->select('questions.id, questions.subject_id, questions.board_id, questions.zilla_id, questions.thana_id, questions.institute_id, questions.year, questions.q_image, questions.hot, questions.created_at, subjects.subject AS sbn,boards.name AS boardnm,districts.name AS districtnm, thana.name AS thananm,institutes.name AS instnm')
+            ->join('subjects', 'subjects.id = questions.subject_id', 'inner')
+            ->join('boards', 'boards.id=questions.board_id', 'inner')
+            ->join('districts', 'districts.id=questions.zilla_id', 'inner')
+            ->join('thana', 'thana.id=questions.thana_id', 'inner')
+            ->join('institutes', 'institutes.id=questions.institute_id', 'inner')
+            ->orderBy('questions.id', 'ASC')
+            ->get();
+        $result = $query->getResultArray();
         return view("admin/questions", [
-            'subcats' => $data,
+            'subcats' => $result,
+            'subject' => $subject,
+            'board' => $board,
             'security' => $this->security
         ]);
     }
@@ -42,7 +61,18 @@ class QuestionsController extends BaseController
         $builder = $this->db->table('questions');
         $data = $builder->get()->getResultArray();
         // dd($data);
-        return $this->respond($data, 200);
+
+        $query = $this->db->table('questions')
+            ->select('questions.id, questions.subject_id, questions.board_id, questions.zilla_id, questions.thana_id, questions.institute_id, questions.year, questions.q_image, questions.hot, questions.created_at, subjects.subject AS sbn,boards.name AS boardnm,districts.name AS districtnm, thana.name AS thananm,institutes.name AS instnm')
+            ->join('subjects', 'subjects.id = questions.subject_id', 'inner')
+            ->join('boards', 'boards.id=questions.board_id', 'inner')
+            ->join('districts', 'districts.id=questions.zilla_id', 'inner')
+            ->join('thana', 'thana.id=questions.thana_id', 'inner')
+            ->join('institutes', 'institutes.id=questions.institute_id', 'inner')
+            ->orderBy('questions.id', 'ASC')
+            ->get();
+        $result = $query->getResultArray();
+        return $this->respond($result, 200);
     }
 
     public function create()

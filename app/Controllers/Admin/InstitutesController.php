@@ -23,9 +23,19 @@ class InstitutesController extends BaseController
 
         $data = $builder->get()->getResultArray();
         // dd($data);
-
+        $thana = $this->db
+            ->table('thana')
+            ->select('id, name')
+            ->get()->getResultArray();
+        $query = $this->db->table('institutes')
+            ->select('institutes.id, institutes.thana_id, institutes.name, institutes.url, thana.name AS t_name')
+            ->join('thana', 'thana.id = institutes.thana_id', 'inner')
+            ->orderBy('institutes.id', 'ASC')
+            ->get();
+        $result = $query->getResultArray();
         return view("admin/institutes", [
-            'subcats' => $data,
+            'subcats' => $result,
+            'th' => $thana,
             'security' => $this->security
         ]);
     }
@@ -43,7 +53,13 @@ class InstitutesController extends BaseController
         $builder = $this->db->table('institutes');
         $data = $builder->get()->getResultArray();
         // dd($data);
-        return $this->respond($data, 200);
+        $query = $this->db->table('institutes')
+            ->select('institutes.id, institutes.thana_id, institutes.name, institutes.url, thana.name AS t_name')
+            ->join('thana', 'thana.id = institutes.thana_id', 'inner')
+            ->orderBy('institutes.id', 'ASC')
+            ->get();
+        $result = $query->getResultArray();
+        return $this->respond($result, 200);
     }
 
     public function create()

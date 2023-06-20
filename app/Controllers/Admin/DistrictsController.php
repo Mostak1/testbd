@@ -23,9 +23,19 @@ class DistrictsController extends BaseController
 
         $data = $builder->get()->getResultArray();
         // dd($data);
-
+        $boards = $this->db
+            ->table('boards')
+            ->select('id, name')
+            ->get()->getResultArray();
+        $query = $this->db->table('districts')
+            ->select('districts.id, districts.board_id, districts.name, districts.bn_name, districts.lat, districts.lon, districts.url, boards.name AS board_name')
+            ->join('boards', 'boards.id = districts.board_id', 'inner')
+            ->orderBy('districts.id', 'ASC')
+            ->get();
+        $result = $query->getResultArray();
         return view("admin/districts", [
-            'subcats' => $data,
+            'subcats' => $result,
+            'boards' => $boards,
             'security' => $this->security
         ]);
     }
@@ -43,7 +53,12 @@ class DistrictsController extends BaseController
         $builder = $this->db->table('districts');
         $data = $builder->get()->getResultArray();
         // dd($data);
-        return $this->respond($data, 200);
+        $query = $this->db->table('districts')
+            ->select('districts.id, districts.board_id, districts.name, districts.bn_name, districts.lat, districts.lon, districts.url, boards.name AS board_name')
+            ->join('boards', 'boards.id = districts.board_id', 'inner')
+            ->orderBy('districts.id', 'ASC')->get();
+        $result = $query->getResultArray();
+        return $this->respond($result, 200);
     }
 
     public function create()

@@ -14,7 +14,11 @@
     <input type="hidden" id="id" value="">
     <div class="form-group">
         <label class="form-label">Thana</label>
-        <input class="form-control" type="text" name="thana_id" id="thana_id">
+        <select class="form-select" name="board" id="board">
+            <?php foreach ($th as $row) { ?>
+                <option value="<?= $row['id'] ?>"><?= $row['name']  ?></option>
+            <?php } ?>
+        </select>
     </div>
     <div class="form-group">
         <label class="form-label">Institute</label>
@@ -37,7 +41,8 @@
     <thead>
         <tr>
             <th>ID</th>
-            <th>Thana Id</th>
+            <th class="d-none">Thana Id</th>
+            <th>Thana</th>
             <th>Institute</th>
             <th>Website</th>
             <th>Action</th>
@@ -105,7 +110,8 @@
                 // console.log(row);
                 $html += `<tr class='singlerow'>`;
                 $html += `<td >${row.id}</td>`;
-                $html += `<td class='thana_id'>${row.thana_id}</td>`;
+                $html += `<td class='thana_id d-none'>${row.thana_id}</td>`;
+                $html += `<td class=''>${row.t_name}</td>`;
                 $html += `<td class='name'>${row.name}</td>`;
                 $html += `<td class=''><a href="${row.url}" class="url link-info">${row.url}</a></td>`;
 

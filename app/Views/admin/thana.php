@@ -14,7 +14,11 @@
     <input type="hidden" id="id" value="">
     <div class="form-group">
         <label class="form-label">District</label>
-        <input class="form-control" type="text" name="district_id" id="district_id">
+        <select class="form-select" name="board" id="board">
+            <?php foreach ($dst as $row) { ?>
+                <option value="<?= $row['id'] ?>"><?= $row['name']  ?></option>
+            <?php } ?>
+        </select>
     </div>
     <div class="form-group">
         <label class="form-label">Thana</label>
@@ -42,7 +46,8 @@
     <thead>
         <tr>
             <th>ID</th>
-            <th>District id</th>
+            <th class="d-none">District id</th>
+            <th>District</th>
             <th>Thana</th>
             <th>Thana(bangla)</th>
             <th>Website</th>
@@ -113,7 +118,8 @@
                 // console.log(row);
                 $html += `<tr class='singlerow'>`;
                 $html += `<td >${row.id}</td>`;
-                $html += `<td class='district_id'>${row.district_id}</td>`;
+                $html += `<td class='district_id d-none'>${row.district_id}</td>`;
+                $html += `<td class=''>${row.d_name}</td>`;
                 $html += `<td class='name'>${row.name}</td>`;
                 $html += `<td class='bn_name'>${row.bn_name}</td>`;
                 $html += `<td class=''><a href="${row.url}" class="url link-info">${row.url}</a></td>`;

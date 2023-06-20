@@ -23,9 +23,19 @@ class ThanaController extends BaseController
 
         $data = $builder->get()->getResultArray();
         // dd($data);
-
+        $districts = $this->db
+            ->table('districts')
+            ->select('id, name')
+            ->get()->getResultArray();
+        $query = $this->db->table('thana')
+            ->select('thana.id, thana.district_id, thana.name, thana.bn_name, thana.url, districts.name AS d_name')
+            ->join('districts', 'districts.id = thana.district_id', 'inner')
+            ->orderBy('thana.id', 'ASC')
+            ->get();
+        $result = $query->getResultArray();
         return view("admin/thana", [
-            'subcats' => $data,
+            'subcats' => $result,
+            'dst' => $districts,
             'security' => $this->security
         ]);
     }
@@ -43,7 +53,13 @@ class ThanaController extends BaseController
         $builder = $this->db->table('thana');
         $data = $builder->get()->getResultArray();
         // dd($data);
-        return $this->respond($data, 200);
+        $query = $this->db->table('thana')
+            ->select('thana.id, thana.district_id, thana.name, thana.bn_name, thana.url, districts.name AS d_name')
+            ->join('districts', 'districts.id = thana.district_id', 'inner')
+            ->orderBy('thana.id', 'ASC')
+            ->get();
+        $result = $query->getResultArray();
+        return $this->respond($result, 200);
     }
 
     public function create()

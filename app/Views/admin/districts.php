@@ -12,9 +12,14 @@
 <div class="form-container">
     <?= csrf_field() ?>
     <input type="hidden" id="id" value="">
+
     <div class="form-group">
         <label class="form-label">Board</label>
-        <input class="form-control" type="text" name="board" id="board">
+        <select class="form-select" name="board" id="board">
+            <?php foreach ($boards as $row) { ?>
+                <option value="<?= $row['id'] ?>"><?= $row['name']  ?></option>
+            <?php } ?>
+        </select>
     </div>
     <div class="form-group">
         <label class="form-label">District</label>
@@ -49,7 +54,7 @@
     <thead>
         <tr>
             <th>ID</th>
-            <th>Board id</th>
+            <th>Board</th>
             <th>District</th>
             <th>District(bangla)</th>
             <th>Latitude</th>
@@ -126,7 +131,8 @@
                 // console.log(row);
                 $html += `<tr class='singlerow'>`;
                 $html += `<td >${row.id}</td>`;
-                $html += `<td class='board_id'>${row.board_id}</td>`;
+                $html += `<td class='board_id d-none'>${row.board_id}</td>`;
+                $html += `<td class=''>${row.board_name}</td>`;
                 $html += `<td class='name'>${row.name}</td>`;
                 $html += `<td class='bn_name'>${row.bn_name}</td>`;
                 $html += `<td class='lat'>${row.lat}</td>`;

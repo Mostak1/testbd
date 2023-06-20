@@ -16,9 +16,9 @@
 </head>
 
 <body>
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-info text-warning">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
+        <a class="navbar-brand ps-3 text-black" target="_blank" href="<?= base_url() ?>">Test BD</a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         <!-- Navbar Search-->
@@ -47,7 +47,7 @@
     </nav>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <nav class="sb-sidenav accordion sb-sidenav bg-info shadow-lg" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Core</div>
@@ -62,14 +62,14 @@
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <?= anchor("admin/boards", "Boards", ['class' => 'nav-link']) ?>
-                                <?= anchor("admin/districts", "Districts", ['class' => 'nav-link']) ?>
-                                <?= anchor("admin/thana", "Thana", ['class' => 'nav-link']) ?>
-                                <?= anchor("admin/institutes", "Institutes", ['class' => 'nav-link']) ?>
-                                <?= anchor("admin/exams", "Exams", ['class' => 'nav-link']) ?>
-                                <?= anchor("admin/questions", "Questions", ['class' => 'nav-link']) ?>
-                                <?= anchor("admin/subject", "Subjects", ['class' => 'nav-link']) ?>
+                            <nav class="sb-sidenav-menu-nested  nav">
+                                <?= anchor("admin/boards", "Boards", ['class' => 'nav-link text-black']) ?>
+                                <?= anchor("admin/districts", "Districts", ['class' => 'nav-link text-black']) ?>
+                                <?= anchor("admin/thana", "Thana", ['class' => 'nav-link text-black']) ?>
+                                <?= anchor("admin/institutes", "Institutes", ['class' => 'nav-link text-black']) ?>
+                                <?= anchor("admin/exams", "Exams", ['class' => 'nav-link text-black']) ?>
+                                <?= anchor("admin/questions", "Questions", ['class' => 'nav-link text-black']) ?>
+                                <?= anchor("admin/subject", "Subjects", ['class' => 'nav-link text-black']) ?>
 
                             </nav>
                         </div>
@@ -117,7 +117,7 @@
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
-                    Start Bootstrap
+                    Admin
                 </div>
             </nav>
         </div>
@@ -133,7 +133,7 @@
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                        <div class="text-muted">Copyright &copy; Test BD 2023</div>
                         <div>
                             <a href="#">Privacy Policy</a>
                             &middot;

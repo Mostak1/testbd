@@ -1,7 +1,7 @@
 <?= $this->extend('admin/admincom') ?>
 
 <?= $this->section('content') ?>
-<h1 class="mt-4">Users Management</h1>
+<h1 class="mt-4">Questions Management</h1>
 
 <hr>
 <div class="d-flex justify-content-end">
@@ -16,7 +16,19 @@
             <input type="hidden" id="id" value="">
             <div class="form-group">
                 <label class="form-label">Subject</label>
-                <input class="form-control" type="text" name="sid" id="sid">
+                <select class="form-select" name="board" id="board">
+                    <?php foreach ($subject as $row) { ?>
+                        <option value="<?= $row['id'] ?>"><?= $row['subject']  ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Subject</label>
+                <select class="form-select" name="board" id="board">
+                    <?php foreach ($board as $row) { ?>
+                        <option value="<?= $row['id'] ?>"><?= $row['name']  ?></option>
+                    <?php } ?>
+                </select>
             </div>
             <div class="form-group">
                 <label class="form-label">Board</label>
@@ -62,6 +74,11 @@
     <thead>
         <tr>
             <th>ID</th>
+            <th class="d-none">Subject id</th>
+            <th class="d-none">Board id</th>
+            <th class="d-none">Zilla id</th>
+            <th class="d-none">Thana id</th>
+            <th class="d-none">Institute id</th>
             <th>Subject</th>
             <th>Board</th>
             <th>Zilla</th>
@@ -143,11 +160,16 @@
                 // console.log(row);
                 $html += `<tr class='singlerow'>`;
                 $html += `<td >${row.id}</td>`;
-                $html += `<td class='sid'>${row.subject_id}</td>`;
-                $html += `<td class='bid'>${row.board_id}</td>`;
-                $html += `<td class='zid'>${row.zilla_id}</td>`;
-                $html += `<td class='tid'>${row.thana_id}</td>`;
-                $html += `<td class='iid'>${row.institute_id}</td>`;
+                $html += `<td class='d-none sid'>${row.subject_id}</td>`;
+                $html += `<td class='d-none bid'>${row.board_id}</td>`;
+                $html += `<td class='d-none zid'>${row.zilla_id}</td>`;
+                $html += `<td class='d-none tid'>${row.thana_id}</td>`;
+                $html += `<td class='d-none iid'>${row.institute_id}</td>`;
+                $html += `<td class=''>${row.sbn}</td>`;
+                $html += `<td class=''>${row.boardnm}</td>`;
+                $html += `<td class=''>${row.districtnm}</td>`;
+                $html += `<td class=''>${row.thananm}</td>`;
+                $html += `<td class=''>${row.instnm}</td>`;
                 $html += `<td class='year'>${row.year}</td>`;
                 $html += `<td class='q'>${row.q_image}</td>`;
                 $html += `<td class=''>${row.created_at}</td>`;
