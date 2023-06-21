@@ -16,37 +16,47 @@
             <input type="hidden" id="id" value="">
             <div class="form-group">
                 <label class="form-label">Subject</label>
-                <select class="form-select" name="board" id="board">
+                <select class="form-select" name="sid" id="sid">
+                    <option value="-1">Select</option>
                     <?php foreach ($subject as $row) { ?>
                         <option value="<?= $row['id'] ?>"><?= $row['subject']  ?></option>
                     <?php } ?>
                 </select>
             </div>
             <div class="form-group">
-                <label class="form-label">Subject</label>
-                <select class="form-select" name="board" id="board">
+                <label class="form-label">Board</label>
+                <select class="form-select" name="bid" id="bid">
+                    <option value="-1">Select</option>
                     <?php foreach ($board as $row) { ?>
                         <option value="<?= $row['id'] ?>"><?= $row['name']  ?></option>
                     <?php } ?>
                 </select>
             </div>
             <div class="form-group">
-                <label class="form-label">Board</label>
-                <input class="form-control" type="text" name="bid" id="bid">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Zilla</label>
-                <input class="form-control" type="text" name="zid" id="zid">
+                <label class="form-label">District</label>
+                <select class="form-select" name="zid" id="zid">
+                    <option value="-1">Select</option>
+
+                </select>
+                <!-- <input class="form-control" type="text" name="zid" id="zid"> -->
             </div>
             <div class="form-group">
                 <label class="form-label">Thana</label>
-                <input class="form-control" type="text" name="tid" id="tid">
+                <select class="form-select" name="tid" id="tid">
+                    <option value="-1">Select</option>
+
+                </select>
+                <!-- <input class="form-control" type="text" name="tid" id="tid"> -->
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label class="form-label">Institute</label>
-                <input class="form-control" type="text" name="iid" id="iid">
+                <select class="form-select" name="iid" id="iid">
+                    <option value="-1">Select</option>
+
+                </select>
+                <!-- <input class="form-control" type="text" name="iid" id="iid"> -->
             </div>
             <div class="form-group">
                 <label class="form-label">Year</label>
@@ -81,7 +91,7 @@
             <th class="d-none">Institute id</th>
             <th>Subject</th>
             <th>Board</th>
-            <th>Zilla</th>
+            <th>District</th>
             <th>Thana</th>
             <th>Institute</th>
             <th>Year</th>
@@ -104,7 +114,58 @@
         $("#showFormBtn").click(function() {
             $(".form-container").toggle(300);
         });
+        //districts data change according to board id
+        function renderDis(data) {
+            data.forEach(row => {
+                $("#zid").append("<option value='" + row.id + "'>" + row.name + "</option>")
+            });
+        }
 
+        $("#bid").change(function() {
+            $("#zid").empty();
+            let id = $(this).val();
+            if (id == "-1") return;
+            $.getJSON("<?= base_url("districts/") ?>" + id, {}, function(d) {
+                console.log(d);
+                if (d.length) {
+                    renderDis(d);
+                }
+            });
+        })
+        //thana data change according to districts id
+        function renderThana(data) {
+            data.forEach(row => {
+                $("#tid").append("<option value='" + row.id + "'>" + row.name + "</option>")
+            });
+        }
+        $("#zid").on("change", function() {
+            $("#tid").empty();
+            let id = $(this).val();
+            if (id == "-1") return;
+            $.getJSON("<?= base_url("thana/") ?>" + id, {}, function(d) {
+                console.log(d);
+                if (d.length) {
+                    renderThana(d);
+                }
+            });
+        })
+        //institutes data change according to thanas id
+        function renderIns(data) {
+            data.forEach(row => {
+                $("#iid").append("<option value='" + row.id + "'>" + row.name + "</option>")
+            });
+        }
+        $("#tid").on("change", function() {
+            $("#iid").empty();
+            let id = $(this).val();
+            if (id == "-1") return;
+            $.getJSON("<?= base_url("institutes/") ?>" + id, {}, function(d) {
+                console.log(d);
+                if (d.length) {
+                    renderIns(d);
+                }
+            });
+        })
         //clearform
         function clearform() {
             console.log("clearform");

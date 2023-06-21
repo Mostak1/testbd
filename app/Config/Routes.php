@@ -74,6 +74,9 @@ $routes->get('admin/questions/all', 'Admin\QuestionsController::all');
 $routes->post('admin/questions/new', 'Admin\QuestionsController::create');
 $routes->post('admin/questions/delete', 'Admin\QuestionsController::delete');
 
+$routes->get('districts/(:num)', 'Admin\QuestionsController::districts/$1');
+$routes->get('thana/(:num)', 'Admin\QuestionsController::thana/$1');
+$routes->get('institutes/(:num)', 'Admin\QuestionsController::institutes/$1');
 
 
 

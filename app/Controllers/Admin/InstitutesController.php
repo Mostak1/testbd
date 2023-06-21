@@ -23,19 +23,20 @@ class InstitutesController extends BaseController
 
         $data = $builder->get()->getResultArray();
         // dd($data);
-        $thana = $this->db
-            ->table('thana')
+        $dis = $this->db
+            ->table('districts')
             ->select('id, name')
             ->get()->getResultArray();
         $query = $this->db->table('institutes')
-            ->select('institutes.id, institutes.thana_id, institutes.name, institutes.url, thana.name AS t_name')
+            ->select('institutes.id,institutes.district_id, institutes.thana_id, institutes.name, institutes.url, thana.name AS t_name,districts.name AS d_name')
             ->join('thana', 'thana.id = institutes.thana_id', 'inner')
+            ->join('districts', 'districts.id = institutes.district_id', 'inner')
             ->orderBy('institutes.id', 'ASC')
             ->get();
         $result = $query->getResultArray();
         return view("admin/institutes", [
             'subcats' => $result,
-            'th' => $thana,
+            'dis' => $dis,
             'security' => $this->security
         ]);
     }
@@ -54,8 +55,9 @@ class InstitutesController extends BaseController
         $data = $builder->get()->getResultArray();
         // dd($data);
         $query = $this->db->table('institutes')
-            ->select('institutes.id, institutes.thana_id, institutes.name, institutes.url, thana.name AS t_name')
+            ->select('institutes.id,institutes.district_id, institutes.thana_id, institutes.name, institutes.url, thana.name AS t_name,districts.name AS d_name')
             ->join('thana', 'thana.id = institutes.thana_id', 'inner')
+            ->join('districts', 'districts.id = institutes.district_id', 'inner')
             ->orderBy('institutes.id', 'ASC')
             ->get();
         $result = $query->getResultArray();
@@ -67,6 +69,7 @@ class InstitutesController extends BaseController
         $request = request();
         //return $this->respond($_POST,200);
         $data = [
+            'district_id' => $request->getPost('did'),
             'thana_id' => $request->getPost('thana_id'),
             'name' => $request->getPost('name'),
             'url' => $request->getPost('url'),

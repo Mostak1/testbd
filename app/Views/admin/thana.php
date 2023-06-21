@@ -14,7 +14,7 @@
     <input type="hidden" id="id" value="">
     <div class="form-group">
         <label class="form-label">District</label>
-        <select class="form-select" name="board" id="board">
+        <select class="form-select" name="district_id" id="district_id">
             <?php foreach ($dst as $row) { ?>
                 <option value="<?= $row['id'] ?>"><?= $row['name']  ?></option>
             <?php } ?>

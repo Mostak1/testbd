@@ -13,11 +13,18 @@
     <?= csrf_field() ?>
     <input type="hidden" id="id" value="">
     <div class="form-group">
-        <label class="form-label">Thana</label>
-        <select class="form-select" name="board" id="board">
-            <?php foreach ($th as $row) { ?>
+        <label class="form-label">District</label>
+        <select class="form-select" name="did" id="did">
+            <option value="-1">Select</option>
+            <?php foreach ($dis as $row) { ?>
                 <option value="<?= $row['id'] ?>"><?= $row['name']  ?></option>
             <?php } ?>
+        </select>
+    </div>
+    <div class="form-group">
+        <label class="form-label">Thana</label>
+        <select class="form-select" name="thana_id" id="thana_id">
+            <option value="-1">Select</option>
         </select>
     </div>
     <div class="form-group">
@@ -41,6 +48,8 @@
     <thead>
         <tr>
             <th>ID</th>
+            <th>District</th>
+            <th class="d-none">d Id</th>
             <th class="d-none">Thana Id</th>
             <th>Thana</th>
             <th>Institute</th>
@@ -62,7 +71,24 @@
         $("#showFormBtn").click(function() {
             $(".form-container").toggle(300);
         });
+        //thana data change according to district id
+        function renderDis(data) {
+            data.forEach(row => {
+                $("#thana_id").append("<option value='" + row.id + "'>" + row.name + "</option>")
+            });
+        }
 
+        $("#did").change(function() {
+            $("#thana_id").empty();
+            let id = $(this).val();
+            if (id == "-1") return;
+            $.getJSON("<?= base_url("thana/") ?>" + id, {}, function(d) {
+                console.log(d);
+                if (d.length) {
+                    renderDis(d);
+                }
+            });
+        })
         //clearform
         function clearform() {
             $("#thana_id").val("");
@@ -110,6 +136,8 @@
                 // console.log(row);
                 $html += `<tr class='singlerow'>`;
                 $html += `<td >${row.id}</td>`;
+                $html += `<td >${row.d_name}</td>`;
+                $html += `<td class='did d-none'>${row.district_id}</td>`;
                 $html += `<td class='thana_id d-none'>${row.thana_id}</td>`;
                 $html += `<td class=''>${row.t_name}</td>`;
                 $html += `<td class='name'>${row.name}</td>`;
@@ -137,6 +165,7 @@
         $("#maindata").on("click", ".editBtn", function() {
             $t = $(this);
             $id = $t.data("id");
+            let did = $t.parent().parent().find('.did').html();
             let thana_id = $t.parent().parent().find('.thana_id').html();
             let name = $t.parent().parent().find('.name').html();
             let url = $t.parent().parent().find('.url').html();

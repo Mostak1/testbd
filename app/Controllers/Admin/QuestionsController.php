@@ -47,6 +47,34 @@ class QuestionsController extends BaseController
             'security' => $this->security
         ]);
     }
+    //create method for change thana,district,board according to ...
+    public function districts($id)
+    {
+        $districts = $this->db
+            ->table('districts')
+            ->select('id, name')
+            ->where('board_id', $id)
+            ->get()->getResultArray();
+        return $this->response->setJSON($districts);
+    }
+    public function thana($id)
+    {
+        $thana = $this->db
+            ->table('thana')
+            ->select('id, name')
+            ->where('district_id', $id)
+            ->get()->getResultArray();
+        return $this->response->setJSON($thana);
+    }
+    public function institutes($id)
+    {
+        $institutes = $this->db
+            ->table('institutes')
+            ->select('id, name')
+            ->where('thana_id', $id)
+            ->get()->getResultArray();
+        return $this->response->setJSON($institutes);
+    }
 
     //paginated link
     public function getPaginatedData($id)
