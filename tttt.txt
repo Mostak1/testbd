@@ -30,3 +30,22 @@ INSERT INTO `users`(`id`, `name`, `email`, `mobile`, `password`, `role`, `create
                 $html += `<td class='zid'>${row.districtnm}</td>`;
                 $html += `<td class='tid'>${row.thananm}</td>`;
                 $html += `<td class='iid'>${row.instnm}</td>`;
+
+INSERT INTO `thana`(`district_id`, `name`, `bn_name`, `url`) VALUES 
+(47,'Gulshan','','gulsan.com'),
+(47,'Jatrabari','','jatrabari.com'),
+(47,'Joypara','','joy.com'),
+(47,'Keraniganj','','keranigonj.com'),
+(47,'Khilgaon','','khilgaon.com'),
+(47,'Khilkhet','','Khilkhet.com'),
+(47,'Lalbag','','Lalbag.com'),
+(47,'Mirpur','Mirpur','Mirpur.com'),
+(47,'Mohammadpur','Mohammadpur','Mohammadpur.com'),
+(47,'Motijheel','Motijheel','Motijheel.com'),
+(47,'Nawabganj','Nawabganj','Nawabganj.com'),
+(47,'New market','New-market','Newmarket.com'),
+(47,'Palton','Palton','Palton.com'),
+(47,'Ramna','Ramna','Ramna.com'),
+(47,'Sabujbag','Sabujbag','Sabujbag.com'),
+(47,'Savar','Savar','Savar.com'),
+(47,'Uttara','Uttara','Uttara.com');
