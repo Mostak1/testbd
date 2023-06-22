@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Playfair+Display&display=swap");
+
+* {
+  font-family: "Playfair Display", serif;
+}
+.home_title {
+  font-size: 60px;
+  font-family: "Caveat Brush", cursive;
+  width: fit-content;
+  margin: 0 auto;
+  color: rgb(235, 155, 6);
+}
+.exam_topic {
+ 
+  border: 1px solid rgb(235, 155, 6);
+  padding: 5px 15px 5px 15px;
+  margin: 8px;
+}

@@ -8,11 +8,11 @@
 
     <link rel="stylesheet" href="<?= base_url() ?>/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <link rel="stylesheet" href="<?= base_url() ?>/assets/css/style.css">
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-0 py-3">
+    <nav class="navbar navbar-expand-lg navbar shadow-lg  px-0 py-3">
         <div class="container-xl">
             <!-- Logo -->
             <a class="navbar-brand" href="#">
@@ -26,10 +26,10 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <!-- Nav -->
                 <div class="navbar-nav mx-lg-auto">
-                    <a class="nav-item nav-link active" href="<?= base_url() ?>" aria-current="page">Home</a>
-                    <a class="nav-item nav-link" href="#">Product</a>
-                    <a class="nav-item nav-link" href="#">Features</a>
-                    <a class="nav-item nav-link" href="#">Pricing</a>
+                    <a class="nav-item me-4 fs-5 nav-link active" href="<?= base_url() ?>" aria-current="page">Home</a>
+                    <a class="nav-item me-4 fs-5 nav-link" href="#">Shop</a>
+                    <a class="nav-item me-4 fs-5 nav-link" href="#">Questions</a>
+                    <a class="nav-item me-4 fs-5 nav-link" href="#">Pricing</a>
                 </div>
                 <!-- Right navigation -->
 
@@ -234,7 +234,8 @@
         </div>
         <!-- Copyright -->
     </footer>
-
+    <!-- jQuery CDN Here -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <!-- bootstrap js -->
     <script src="<?= base_url() ?>/assets/js/bootstrap.bundle.min.js"></script>
     <?= $this->renderSection('script') ?>
