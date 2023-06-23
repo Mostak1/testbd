@@ -79,8 +79,6 @@ $routes->get('thana/(:num)', 'Admin\QuestionsController::thana/$1');
 $routes->get('institutes/(:num)', 'Admin\QuestionsController::institutes/$1');
 
 
-
-
 $routes->get('/', 'Home::index');
 $routes->get('/registration', 'RegistrationController::index');
 

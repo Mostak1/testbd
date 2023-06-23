@@ -49,3 +49,5 @@ INSERT INTO `thana`(`district_id`, `name`, `bn_name`, `url`) VALUES
 (47,'Sabujbag','Sabujbag','Sabujbag.com'),
 (47,'Savar','Savar','Savar.com'),
 (47,'Uttara','Uttara','Uttara.com');
+
+https://github.com/sslcommerz/SSLCommerz-PHP

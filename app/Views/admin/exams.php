@@ -17,6 +17,10 @@
         <label class="form-label">Exam Name</label>
         <input class="form-control" type="text" name="name" id="name">
     </div>
+    <div class="form-group">
+        <label class="form-label">Address</label>
+        <input class="form-control" type="text" name="url" id="url">
+    </div>
 
 
     <div class="form-group my-2">
@@ -32,6 +36,7 @@
         <tr>
             <th>ID</th>
             <th>Exam Name</th>
+            <th>Address</th>
             <th>Created Time</th>
             <th>Action</th>
         </tr>
@@ -55,6 +60,7 @@
         function clearform() {
 
             $("#name").val("");
+            $("#url").val("");
 
 
             $("#id").val("");
@@ -74,6 +80,7 @@
             $.post("<?= site_url("admin/exams/new") ?>", {
                 id: $("#id").val(),
                 name: $("#name").val(),
+                url: $("#url").val(),
                 'action': "insert"
             }, function(d) {
                 if (d.success) {
@@ -97,6 +104,7 @@
                 $html += `<tr class='singlerow'>`;
                 $html += `<td >${row.id}</td>`;
                 $html += `<td class='name'>${row.exam_name}</td>`;
+                $html += `<td class='url'>${row.url}</td>`;
                 $html += `<td class=''>${row.created_at}</td>`;
 
 
@@ -104,7 +112,6 @@
                 $html += `</tr>`;
             });
             $("#maindata").html($html);
-
 
         }
 
@@ -115,14 +122,14 @@
             clearform()
         }
         loaddata();
-
-
         //editBtn
         $("#maindata").on("click", ".editBtn", function() {
             $t = $(this);
             $id = $t.data("id");
             let name = $t.parent().parent().find('.name').html();
+            let url = $t.parent().parent().find('.url').html();
             $("#name").val(name);
+            $("#url").val(url);
             $("#id").val($id);
             $("#addBtn").val('Update');
             $(".form-container").show(400);
@@ -144,7 +151,7 @@
                 console.log(result);
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
-                    //           
+                    //
                     // ajax            
                     $.post("<?= site_url("admin/exams/delete") ?>", {
                         'id': $id,

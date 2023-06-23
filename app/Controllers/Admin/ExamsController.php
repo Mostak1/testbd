@@ -45,20 +45,17 @@ class ExamsController extends BaseController
         // dd($data);
         return $this->respond($data, 200);
     }
-
     public function create()
     {
         $request = request();
         //return $this->respond($_POST,200);
         $data = [
-
             'exam_name' => $request->getPost('name'),
-
+            'url' => $request->getPost('url'),
         ];
         if ($request->getPost('id') != "") {
             $data['id'] = $request->getPost('id');
         }
-
         $builder = $this->db->table('exams');
         $builder->upsert($data);
         // $this->db

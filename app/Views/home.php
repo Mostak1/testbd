@@ -2,8 +2,7 @@
 <?= $this->section('content') ?>
 <div class="container my-5">
     <div class="home_title">~Past Exam Papers~</div>
-    <div class="exam_data row"></div>
-
+    <div class="exam_data "></div>
 </div>
 <?= $this->endSection() ?>
 <?= $this->section('script') ?>
@@ -16,15 +15,10 @@
 
             $.each(d, function(index, row) {
                 // console.log(row);
-
-                $html += `<div class='exam_topic text-center col'> ${row.exam_name}</div>`;
-
+                $html += `<a href="" class='exam_topic text-center col-md-3'> ${row.exam_name}</a>`;
             });
 
             $(".exam_data").html($html);
-
-
-
         }
 
         function loaddata() {
