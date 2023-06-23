@@ -2,7 +2,7 @@
 <?= $this->section('content') ?>
 <div class="container my-5">
     <div class="home_title">~Past Exam Papers~</div>
-    <div class="exam_data"></div>
+    <div class="exam_data row"></div>
 
 </div>
 <?= $this->endSection() ?>
@@ -17,7 +17,7 @@
             $.each(d, function(index, row) {
                 // console.log(row);
 
-                $html += `<div class='exam_topic'> ${row.exam_name}</div>`;
+                $html += `<div class='exam_topic text-center col'> ${row.exam_name}</div>`;
 
             });
 

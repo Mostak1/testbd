@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar shadow-lg  px-0 py-3">
+    <nav class="navbar navbar-expand-lg navbar shadow  px-0 py-3">
         <div class="container-xl">
             <!-- Logo -->
             <a class="navbar-brand" href="#">
