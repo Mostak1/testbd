@@ -5,12 +5,14 @@
     <div class="row contact">
         <div class="col-md-6">
             <!-- <Lottie animationData={contactm} loop={true} /> -->
+
+            <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_mjlh3hcy.json" background="transparent" speed="1" style="width: 600px; height: 400px;" loop autoplay></lottie-player>
         </div>
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-12">
                     <div class="titlepage mx-auto text-center">
-                        <h2>Contact Now</h2>
+                        <h2>LogIn Here</h2>
                     </div>
                 </div>
             </div>
