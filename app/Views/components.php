@@ -28,7 +28,8 @@
                 <!-- Nav -->
                 <div class="navbar-nav mx-lg-auto">
                     <a class="nav-item me-4 fs-5 nav-link active" href="<?= base_url() ?>" aria-current="page">Home</a>
-                    <a class="nav-item me-4 fs-5 nav-link" href="#">Shop</a>
+                    <!-- <a class="nav-item me-4 fs-5 nav-link" href="#">Shop</a> -->
+                    <?= anchor("shop", "Shop", ['class' => "nav-item me-4 fs-5 nav-link"]) ?>
                     <a class="nav-item me-4 fs-5 nav-link" href="#">Questions</a>
                     <a class="nav-item me-4 fs-5 nav-link" href="#">Pricing</a>
                 </div>
@@ -67,9 +68,18 @@
                             <?php
                             }
                             ?>
-
                         </ul>
+
                     </li>
+                    <div class="">
+                        <button type="button" class="btn btn-outline-primary position-relative">
+                            Buy Item
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                99+
+                                <span class="visually-hidden">unread messages</span>
+                            </span>
+                        </button>
+                    </div>
                 </ul>
 
             </div>

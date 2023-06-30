@@ -15,7 +15,7 @@
                         <p class="card-text">Price :<?= $row['price']  ?> </p>
                     </div>
                     <div class="card-footer">
-                        <small class="text-body-black fw-bold"><i class="fa-solid fa-cart-plus"></i>Buy</small>
+                        <i id="cart" data-price="<?= $row['price']  ?>" data-sub="<?= $row['subject']  ?>" data-id=<?= $row['id'] ?> class="fa-solid fa-cart-plus cart"></i>
                     </div>
                 </div>
             </div>
@@ -30,6 +30,26 @@
 <?= $this->endSection() ?>
 <?= $this->section('script') ?>
 <script>
+    $(document).ready(function() {
+        $('.cart').click(function() {
+            let id = $(this).data('id');
+            let sub = $(this).data('sub');
+            let price = $(this).data('price');
 
+            let item = {
+                id: id,
+                sub: sub,
+                price: price
+            };
+
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+            cartItems.push(item);
+
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+            alert('Item added to cart successfully!');
+        });
+    });
 </script>
 <?= $this->endSection() ?>
