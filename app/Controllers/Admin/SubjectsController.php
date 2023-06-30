@@ -29,6 +29,20 @@ class SubjectsController extends BaseController
             'security' => $this->security
         ]);
     }
+    public function store()
+    {
+
+        //echo BASESEURL . "<hr>";
+        $builder = $this->db->table('subjects');
+
+        $data = $builder->get()->getResultArray();
+        // dd($data);
+
+        return view("store", [
+            'sub' => $data,
+            'security' => $this->security
+        ]);
+    }
 
     //paginated link
     public function getPaginatedData($id)
@@ -54,7 +68,11 @@ class SubjectsController extends BaseController
             'subject' => $request->getPost('subject'),
             'class' => $request->getPost('class'),
             'images' => $request->getPost('image'),
+            'quantity' => $request->getPost('q'),
+            'price' => $request->getPost('p'),
+            'discount' => $request->getPost('d'),
         ];
+        // `quantity`, `price`, `discount`
         if ($request->getPost('id') != "") {
             $data['id'] = $request->getPost('id');
         }

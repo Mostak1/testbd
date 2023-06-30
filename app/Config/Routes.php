@@ -86,6 +86,7 @@ $routes->post('registration/store', 'RegistrationController::store');
 $routes->get('/login', 'RegistrationController::login');
 $routes->post('/login', 'RegistrationController::login');
 $routes->get('/logout', 'RegistrationController::logout');
+$routes->get('/shop', 'Admin\SubjectsController::store');
 
 
 

@@ -24,6 +24,18 @@
         <label class="form-label">Image</label>
         <input class="form-control" type="text" name="image" id="image">
     </div>
+    <div class="form-group">
+        <label class="form-label">Quantity</label>
+        <input class="form-control" type="number" name="q" id="q">
+    </div>
+    <div class="form-group">
+        <label class="form-label">Price</label>
+        <input class="form-control" type="number" name="p" id="p">
+    </div>
+    <div class="form-group">
+        <label class="form-label">Discount</label>
+        <input class="form-control" type="number" name="d" id="d">
+    </div>
 
     <div class="form-group my-2">
         <input type="button" class="btn btn-outline-primary" value="ADD" id="addBtn">
@@ -41,6 +53,9 @@
             <th>Class</th>
             <th class="d-none">Image</th>
             <th>Image</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Discount</th>
             <th>Create Time</th>
             <th>Action</th>
         </tr>
@@ -65,6 +80,9 @@
             $("#subject").val("");
             $("#class").val("");
             $("#image").val("");
+            $("#q").val("");
+            $("#p").val("");
+            $("#d").val("");
 
             $("#id").val("");
             $("#addBtn").val('Add');
@@ -85,6 +103,9 @@
                 subject: $("#subject").val(),
                 class: $("#class").val(),
                 image: $("#image").val(),
+                q: $("#q").val(),
+                p: $("#p").val(),
+                d: $("#d").val(),
                 'action': "insert"
             }, function(d) {
                 if (d.success) {
@@ -111,6 +132,9 @@
                 $html += `<td class='cls'>${row.class}</td>`;
                 $html += `<td class='img d-none'>${row.images}</td>`;
                 $html += `<td class=''><img width="50px" src="<?= base_url() ?>/assets/HSC/${row.images}" alt="${row.images}"></td>`;
+                $html += `<td class='q'>${row.quantity}</td>`;
+                $html += `<td class='p'>${row.price}</td>`;
+                $html += `<td class='d'>${row.discount}</td>`;
                 $html += `<td>${row.created_at}</td>`;
 
                 $html += `<td><a href='javascript:void(0)' class='editBtn' data-id='${row.id}'><i class="bi bi-pencil-square"></i></a><a href='javascript:void(0)' class='deleteBtn' data-id='${row.id}'><i class="bi bi-trash-fill"></i></a></td>`;
@@ -137,9 +161,15 @@
             let subject = $t.parent().parent().find('.sub').html();
             let cls = $t.parent().parent().find('.cls').html();
             let img = $t.parent().parent().find('.img').html();
+            let q = $t.parent().parent().find('.q').html();
+            let p = $t.parent().parent().find('.p').html();
+            let d = $t.parent().parent().find('.d').html();
             $("#subject").val(subject);
             $("#class").val(cls);
             $("#image").val(img);
+            $("#q").val(q);
+            $("#p").val(p);
+            $("#d").val(d);
             $("#id").val($id);
             $("#addBtn").val('Update');
             $(".form-container").show(400);
