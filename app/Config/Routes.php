@@ -81,6 +81,7 @@ $routes->get('institutes/(:num)', 'Admin\QuestionsController::institutes/$1');
 
 $routes->get('/', 'Home::index');
 $routes->get('/registration', 'RegistrationController::index');
+$routes->get('/checkout', 'CheckoutController::index');
 
 $routes->post('registration/store', 'RegistrationController::store');
 $routes->get('/login', 'RegistrationController::login');

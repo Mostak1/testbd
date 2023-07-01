@@ -72,13 +72,13 @@
 
                     </li>
                     <div class="">
-                        <button type="button" class="btn btn-outline-primary position-relative">
+                        <a href="<?= base_url('checkout') ?>" class="btn btn-outline-primary position-relative">
                             Buy Item
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                99+
+                            <span id="additm" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+
                                 <span class="visually-hidden">unread messages</span>
                             </span>
-                        </button>
+                        </a>
                     </div>
                 </ul>
 
@@ -250,6 +250,15 @@
     <!-- bootstrap js -->
     <script src="<?= base_url() ?>/assets/js/bootstrap.bundle.min.js"></script>
     <?= $this->renderSection('script') ?>
+    <script>
+        $(document).ready(function() {
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+            let itemCount = cartItems.length;
+            $('#additm').text(itemCount);
+
+        });
+    </script>
 </body>
 
 </html>
