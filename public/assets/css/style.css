@@ -1,7 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Playfair+Display&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Merriweather:wght@300&family=Playfair+Display&display=swap");
 * {
-  font-family: "Playfair Display", serif;
+  /* font-family: "Caveat Brush", cursive; */
+  font-family: "Merriweather", serif;
+  /* font-family: "Playfair Display", serif; */
 }
 .home_title {
   font-size: 60px;

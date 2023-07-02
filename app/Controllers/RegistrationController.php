@@ -61,6 +61,7 @@ class RegistrationController extends BaseController
                 $newdata = [
                     'username'  => $user['name'],
                     'email'     => $user['email'],
+                    'mobile'     => $user['mobile'],
                     'role'     => $user['role'],
                     'logged_in' => true,
                 ];
