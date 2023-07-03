@@ -22,11 +22,6 @@ class OrdersTable extends Migration
                 'constraint'     => 11,
                 'unsigned'       => true,
             ],
-            'product_id' => [
-                'type'           => 'INT',
-                'constraint'     => 11,
-                'unsigned'       => true,
-            ],
             'total' => [
                 'type' => 'FLOAT',
                 'constraint' => '10,2',

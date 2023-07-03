@@ -24,6 +24,7 @@
 </div>
 <!-- --------------------------
 ----------- -----------
+
 -------------------------------- -->
 
 
@@ -41,14 +42,29 @@
                 sub: sub,
                 price: price
             };
-
             let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            if (cartItems.length == 0) {
+                cartItems.push(item);
 
-            cartItems.push(item);
+                localStorage.setItem('cartItems', JSON.stringify(cartItems));
 
-            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                alert('Item added to cart successfully!');
+            } else if (cartItems.length > 0) {
+                // Check for duplicate item
+                let isDuplicate = cartItems.some(e => e.id === id);
+                if (isDuplicate) {
+                    alert("This Product Already Added");
+                    return false;
+                } else {
 
-            alert('Item added to cart successfully!');
+                    cartItems.push(item);
+
+                    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+                    alert('Item added to cart successfully!');
+                }
+            }
+
         });
     });
 </script>

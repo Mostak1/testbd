@@ -41,7 +41,7 @@
 
             <div class="row">
                 <div class="col">
-                    <h2>Cart Items:</h2>
+                    <h2>My Cart Items:</h2>
                     <ol id="cartItemsList"></ol>
                     <div class="row mb-4">
                         <div class="col-6">Total Price:</div>
@@ -102,10 +102,22 @@
         let cartItemsList = $('#cartItemsList');
         for (let i = 0; i < cartItems.length; i++) {
             let item = cartItems[i];
-            let listItem = $('<li></li>');
+            let listItem = $('<li class="row"></li>');
             listItem.text(item.sub + ' - Price: ' + item.price + ' TK');
             listItem.data('price', item.price); // Store the price data as a data attribute
-            listItem.append('<input type="number" name="q" class="val w-25" value="1" min="1">');
+            listItem.append('<input type="number" name="q" class="val w-25 form-control col-2" value="1" min="1">');
+            listItem.append(`<input type="number" name="q" class="pid w-25 form-control d-none" value="${item.id}" min="1">`);
+
+            // Add delete button
+            let deleteBtn = $('<button class="btn btn-outline-danger col-1"><i class="fa-regular fa-trash-can"></i></button>');
+            deleteBtn.data('index', i); // Store the index of the item
+            deleteBtn.on('click', function() {
+                let index = $(this).data('index');
+                cartItems.splice(index, 1); // Remove the item from the cartItems array
+                $(this).closest('li').remove(); // Remove the item from the list
+                localStorage.setItem('cartItems', JSON.stringify(cartItems)); // Update the cartItems in local storage
+            });
+            listItem.append(deleteBtn);
             cartItemsList.append(listItem);
             totalPrice += parseFloat(item.price);
         }
@@ -124,38 +136,12 @@
             });
             totalPriceElement.textContent = totalPrice.toFixed(2) + ' TK';
         });
+
+
         $('#placeOrder').click(function() {
-            // Prepare the form data
-            let formData = {
-                name: $('#name').val(),
-                phn: $('#phn').val(),
-                email: $('#email').val(),
-                bAddress: $('#bAddress').val(),
-                sAddress: $('#sAddress').val(),
-                u_id: $('#u_id').val(),
-                payment: $('#payment').val(),
-                trxid: $('#trxid').val(),
-                comment: $('#comment').val()
-            };
-            // Perform additional form validation if needed
-            // Submit the form data to a server-side endpoint
-            $.ajax({
-                url: '/place-order', // Replace with the actual server-side endpoint URL
-                type: 'POST',
-                data: formData,
-                success: function(response) {
-                    // Clear the cart items from local storage
-                    localStorage.removeItem('cartItems');
-                    // Clear the form fields
-                    $('#orderForm input, #orderForm textarea').val('');
-                    // Display a success message or redirect to a confirmation page
-                    alert('Order placed successfully!');
-                },
-                error: function(xhr, status, error) {
-                    // Display an error message or handle the error condition
-                    alert('Failed to place the order. Please try again.');
-                }
-            });
+            localStorage.removeItem('cartItems');
+
+            alert('Order placed successfully!');
         });
     });
 </script>
