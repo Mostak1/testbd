@@ -27,10 +27,12 @@ class CheckoutController extends BaseController
             'b_address' => $request->getPost('bAddress'),
             's_address' => $request->getPost('sAddress'),
             'customer_id' => $request->getPost('u_id'),
+            'customer_name' => $request->getPost('u_name'),
             'payment' => $request->getPost('payment'),
             'tranxid' => $request->getPost('trxid'),
             'comment' => $request->getPost('comment'),
             'total' => $request->getPost('price'),
+            'status' => 'Pending',
         ];
         // `customer_id`, `total`, `discount`, `quantity`, `comment`, `payment`, `tranxid`, `status`, `b_address`, `s_address`,
         // if ($request->getPost('id') != "") {

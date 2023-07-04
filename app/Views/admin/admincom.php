@@ -71,6 +71,7 @@
                                 <?= anchor("admin/exams", "Exams", ['class' => 'nav-link text-black']) ?>
                                 <?= anchor("admin/questions", "Questions", ['class' => 'nav-link text-black']) ?>
                                 <?= anchor("admin/subject", "Subjects", ['class' => 'nav-link text-black']) ?>
+                                <?= anchor("admin/orders", "Orders", ['class' => 'nav-link text-black']) ?>
 
                             </nav>
                         </div>

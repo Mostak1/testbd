@@ -29,9 +29,9 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-
-$routes->get('admin/dashboard', 'Admin\DashboardController::index');
-
+if (session()->get("logged_in") && session()->get("role") == 2) {
+    $routes->get('admin/dashboard', 'Admin\DashboardController::index');
+}
 $routes->get('admin/subject', 'Admin\SubjectsController::index');
 $routes->get('admin/subject/all', 'Admin\SubjectsController::all');
 $routes->post('admin/subject/new', 'Admin\SubjectsController::create');
@@ -73,6 +73,11 @@ $routes->get('admin/questions', 'Admin\QuestionsController::index');
 $routes->get('admin/questions/all', 'Admin\QuestionsController::all');
 $routes->post('admin/questions/new', 'Admin\QuestionsController::create');
 $routes->post('admin/questions/delete', 'Admin\QuestionsController::delete');
+
+$routes->get('admin/orders', 'Admin\OrdersController::index');
+$routes->get('admin/orders/all', 'Admin\OrdersController::all');
+$routes->post('admin/orders/new', 'Admin\OrdersController::create');
+$routes->post('admin/orders/delete', 'Admin\OrdersController::delete');
 
 $routes->get('districts/(:num)', 'Admin\QuestionsController::districts/$1');
 $routes->get('thana/(:num)', 'Admin\QuestionsController::thana/$1');

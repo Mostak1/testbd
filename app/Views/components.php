@@ -7,7 +7,7 @@
     <?= csrf_meta() ?>
 
     <title>Test BD</title>
-
+    <link href="https://demo.dashboardpack.com/architectui-html-free/main.css" rel="stylesheet" />
     <link rel="stylesheet" href="<?= base_url() ?>/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="<?= base_url() ?>/assets/css/style.css">
@@ -61,6 +61,8 @@
                             <?php
                             } elseif (session()->get("logged_in")) {
                             ?>
+                                <li><?= anchor("profile", "Profile", ['class' => "dropdown-item"]) ?></li>
+                                <li><?= anchor("logout", "Logout", ['class' => "dropdown-item"]) ?></li>
                             <?php
 
                             } else {

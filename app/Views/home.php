@@ -26,8 +26,27 @@
     <!-- --------------------------
 ---------------End Carousel-------
 -------------------------------- -->
+    <div class="my-3 row">
+        <div class="col-md-6">
+
+            <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_7WvWjFXF9K.json" background="transparent" speed="1" style="width: 400px;" loop autoplay></lottie-player>
+        </div>
+        <div class="col-md-6">
+            <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_bwnHjUCsaL.json" background="transparent" speed="1" style="width: 400px;" loop autoplay></lottie-player>
+        </div>
+    </div>
+    <!-- testpaper title dynamic -->
     <div class="home_title">~Past Exam Papers~</div>
     <div class="exam_data "></div>
+    <div class="my-3 row">
+        <div class="col-md-6">
+
+            <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_yg29hewu.json" background="transparent" speed="1" style="width: 600px; " loop autoplay></lottie-player>
+        </div>
+        <div class="col-md-6">
+            <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_1a8dx7zj.json" background="transparent" speed="1" style="width: 600px;" loop autoplay></lottie-player>
+        </div>
+    </div>
 </div>
 <?= $this->endSection() ?>
 <?= $this->section('script') ?>

@@ -11,7 +11,7 @@
                     <h3 class="title">User Information</h3>
                 </div>
                 <?= csrf_field() ?>
-                <input id="u_id" class="form-control" type="text" name="u_id" value="<?= session()->get('uid') ?? 7 ?>" placeholder="id">
+                <input id="u_id" class="form-control" type="text" name="u_id" value="<?= session()->get('uid') ?? 7 ?>" placeholder="id" hidden>
                 <div class="mb-2">
                     <input id="name" class="form-control" type="text" name="name" value="<?= session()->get('username') ?>" placeholder="Name">
                 </div>
@@ -85,7 +85,18 @@
                     <textarea name="comment" id="comment" class="form-control"></textarea>
                 </div>
             </div>
-            <input id="orderBtn" type="submit" class="btn btn-danger" name="sub">
+            <?php
+            if (session()->get("logged_in")) {
+            ?>
+                <input id="orderBtn" type="submit" class="btn btn-danger" name="sub">
+            <?php
+            } else {
+            ?>
+                <div class="text-danger">Please Login to Submit Order</div>
+            <?php
+
+            }
+            ?>
         </div>
 
         </form>
@@ -138,19 +149,28 @@
         });
 
 
-        $('#placeOrder').click(function() {
-            localStorage.removeItem('cartItems');
 
-            alert('Order placed successfully!');
-        });
         // addBtn
 
         $("#orderBtn").click(function() {
+            let pa = $('#payment').val();
+            let tid = $('#trxid').val();
+            if (pa == "-1") {
+                alert("pls select payment method");
+                return;
+            }
+            if (pa == "bkash" || pa == "nogod") {
+                if (tid.length == 0) {
+                    alert("Please provide transaction id if you select bkash or nogod");
+                    return;
+                }
+            }
             $.post("<?= site_url("checkout/new") ?>", {
 
                 bAddress: $('#bAddress').val(),
                 sAddress: $('#sAddress').val(),
                 u_id: $('#u_id').val(),
+                u_name: $('#name').val(),
                 payment: $('#payment').val(),
                 trxid: $('#trxid').val(),
                 comment: $('#comment').val(),
@@ -168,6 +188,7 @@
                 }
 
             })
+            localStorage.removeItem('cartItems');
         });
         // addBtn end
     });
