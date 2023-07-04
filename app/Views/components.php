@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?= csrf_meta() ?>
+
     <title>Test BD</title>
 
     <link rel="stylesheet" href="<?= base_url() ?>/assets/css/bootstrap.min.css">
@@ -250,6 +252,14 @@
     <!-- bootstrap js -->
     <script src="<?= base_url() ?>/assets/js/bootstrap.bundle.min.js"></script>
     <?= $this->renderSection('script') ?>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="X-CSRF-TOKEN"]').attr('content')
+            }
+        });
+    </script>
     <script>
         $(document).ready(function() {
             let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];

@@ -10,27 +10,26 @@
                 <div class="section-title">
                     <h3 class="title">User Information</h3>
                 </div>
-                <form action="" method="post">
-                    <div class="mb-2">
-                        <input id="name" class="form-control" type="text" name="name" value="<?= session()->get('username') ?>" placeholder="Name">
-                    </div>
-                    <div class="mb-2">
-                        <input class="form-control" type="text" name="phn" value="<?= session()->get('mobile') ?>" placeholder="Phone">
-                    </div>
-                    <div class="mb-2">
-                        <input class="form-control" type="email" name="email" value="<?= session()->get('email') ?>" placeholder="Email">
-                    </div>
-                    <h3 class="title">Billing Address</h3>
-                    <div class="mb-2">
-                        <input id="bAddress" class="form-control" type="text" name="b_address" placeholder="Billing Address">
-                    </div>
-                    <h3 class="title">Shipping Address</h3>
-                    <div class="mb-2">
-                        <input id="sAddress" class="form-control" type="text" name="s_address" placeholder="Shipping Address">
-                    </div>
-                    <div>
-                        <input value="<?= session()->get('id') ?>" id="u_id" name="u_id" type="hidden">
-                    </div>
+                <?= csrf_field() ?>
+                <input id="u_id" class="form-control" type="text" name="u_id" value="<?= session()->get('uid') ?? 7 ?>" placeholder="id">
+                <div class="mb-2">
+                    <input id="name" class="form-control" type="text" name="name" value="<?= session()->get('username') ?>" placeholder="Name">
+                </div>
+                <div class="mb-2">
+                    <input class="form-control" type="text" name="phn" value="<?= session()->get('mobile') ?>" placeholder="Phone">
+                </div>
+                <div class="mb-2">
+                    <input class="form-control" type="email" name="email" value="<?= session()->get('email') ?>" placeholder="Email">
+                </div>
+                <h3 class="title">Billing Address</h3>
+                <div class="mb-2">
+                    <input id="bAddress" class="form-control" type="text" name="b_address" placeholder="Billing Address">
+                </div>
+                <h3 class="title">Shipping Address</h3>
+                <div class="mb-2">
+                    <input id="sAddress" class="form-control" type="text" name="s_address" placeholder="Shipping Address">
+                </div>
+
             </div>
         </div>
         <!-- ........................order......................... -->
@@ -46,6 +45,7 @@
                     <div class="row mb-4">
                         <div class="col-6">Total Price:</div>
                         <div id="totalPrice" class="col-3"></div>
+                        <div id="" class="col-1">TK</div>
                     </div>
                 </div>
             </div>
@@ -123,7 +123,7 @@
         }
         // Display total price
         let totalPriceElement = document.getElementById('totalPrice');
-        totalPriceElement.textContent = totalPrice.toFixed(2) + ' TK';
+        totalPriceElement.textContent = totalPrice.toFixed(2);
 
         // Handle quantity change
         $('#cartItemsList').on('change', '.val', function() {
@@ -134,7 +134,7 @@
                 let itemTotal = quantity * price;
                 totalPrice += itemTotal;
             });
-            totalPriceElement.textContent = totalPrice.toFixed(2) + ' TK';
+            totalPriceElement.textContent = totalPrice.toFixed(2);
         });
 
 
@@ -143,6 +143,33 @@
 
             alert('Order placed successfully!');
         });
+        // addBtn
+
+        $("#orderBtn").click(function() {
+            $.post("<?= site_url("checkout/new") ?>", {
+
+                bAddress: $('#bAddress').val(),
+                sAddress: $('#sAddress').val(),
+                u_id: $('#u_id').val(),
+                payment: $('#payment').val(),
+                trxid: $('#trxid').val(),
+                comment: $('#comment').val(),
+                price: $('#totalPrice').text(),
+                'action': "insert"
+            }, function(d) {
+                if (d.success) {
+                    Swal.fire(
+                        'Order placed successfully!',
+                        d.message,
+                        'success'
+                    ).then(() => {
+                        loaddata();
+                    })
+                }
+
+            })
+        });
+        // addBtn end
     });
 </script>
 <?= $this->endSection() ?>

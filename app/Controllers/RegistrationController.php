@@ -59,6 +59,7 @@ class RegistrationController extends BaseController
         if ($user) {
             if (password_verify($pass, $user['password'])) {
                 $newdata = [
+                    'uid' => $user['id'],
                     'username'  => $user['name'],
                     'email'     => $user['email'],
                     'mobile'     => $user['mobile'],
