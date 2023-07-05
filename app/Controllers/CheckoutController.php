@@ -40,13 +40,43 @@ class CheckoutController extends BaseController
         // }
 
         $builder = $this->db->table('orders');
-        $builder->upsert($data);
+        $builder->insert($data);
         // $this->db
         // ->table('subjects')
         // ->insert($data);
+        // Get the dynamic keys and values from the request
+        $dynamicKeys = [];
+        foreach ($request->getPost() as $key => $value) {
+            if (strpos($key, 'sub_') !== false) {
+                $index = substr($key, strlen('sub_'));
+                $dynamicKeys[$index]['sub'] = $value;
+            } elseif (strpos($key, 'id_') !== false) {
+                $index = substr($key, strlen('id_'));
+                $dynamicKeys[$index]['id'] = $value;
+            } elseif (strpos($key, 'qu_') !== false) {
+                $index = substr($key, strlen('qu_'));
+                $dynamicKeys[$index]['qu'] = $value;
+            }
+        }
+
+        // Insert the dynamic keys and values into the database
+        if (!empty($dynamicKeys)) {
+            $orderItems = [];
+            $insertID = $this->db->insertID();
+            foreach ($dynamicKeys as $key => $values) {
+                $orderItems[] = [
+                    'order_id' => $insertID, // Assuming there is an auto-incrementing primary key column 'id' in the 'orders' table
+                    'subject' => $values['sub'],
+                    'subject_id' => $values['id'],
+                    'quantity' => $values['qu']
+                ];
+            }
+            $builderItems = $this->db->table('order_items');
+            $builderItems->insertBatch($orderItems);
+        }
         return $this->respond([
             'success' => true,
-            'message' => "Data Inserted Successfully"
+            'message' => "Order Submited Successfully"
         ], 200);
     }
 }

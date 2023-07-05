@@ -11,7 +11,7 @@
                     <h3 class="title">User Information</h3>
                 </div>
                 <?= csrf_field() ?>
-                <input id="u_id" class="form-control" type="text" name="u_id" value="<?= session()->get('uid') ?? 7 ?>" placeholder="id" hidden>
+                <input id="u_id" class="form-control" type="text" name="u_id" value="<?= session()->get('uid')  ?>" hidden placeholder="id">
                 <div class="mb-2">
                     <input id="name" class="form-control" type="text" name="name" value="<?= session()->get('username') ?>" placeholder="Name">
                 </div>
@@ -151,22 +151,20 @@
 
 
         // addBtn
-
         $("#orderBtn").click(function() {
             let pa = $('#payment').val();
             let tid = $('#trxid').val();
             if (pa == "-1") {
-                alert("pls select payment method");
+                alert("Please select a payment method");
                 return;
             }
             if (pa == "bkash" || pa == "nogod") {
                 if (tid.length == 0) {
-                    alert("Please provide transaction id if you select bkash or nogod");
+                    alert("Please provide a transaction ID if you select bKash or Nogod");
                     return;
                 }
             }
-            $.post("<?= site_url("checkout/new") ?>", {
-
+            let formData = {
                 bAddress: $('#bAddress').val(),
                 sAddress: $('#sAddress').val(),
                 u_id: $('#u_id').val(),
@@ -175,8 +173,17 @@
                 trxid: $('#trxid').val(),
                 comment: $('#comment').val(),
                 price: $('#totalPrice').text(),
-                'action': "insert"
-            }, function(d) {
+                action: "insert"
+            };
+
+            for (let i = 0; i < cartItems.length; i++) {
+                let item = cartItems[i];
+                formData['sub_' + i] = item.sub; // Add item.sub with a dynamic key (e.g., sub_0, sub_1, etc.)
+                formData['id_' + i] = item.id; // Add item.id with a dynamic key (e.g., id_0, id_1, etc.)
+                formData['qu_' + i] = $('.val').eq(i).val();
+            }
+
+            $.post("<?= site_url("checkout/new") ?>", formData, function(d) {
                 if (d.success) {
                     Swal.fire(
                         'Order placed successfully!',
@@ -184,10 +191,10 @@
                         'success'
                     ).then(() => {
                         loaddata();
-                    })
+                    });
                 }
+            });
 
-            })
             localStorage.removeItem('cartItems');
         });
         // addBtn end
