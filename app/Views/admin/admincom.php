@@ -10,6 +10,7 @@
     <?= csrf_meta() ?>
     <title>TestBD Admin</title>
     <link href="<?= base_url() ?>assets/css/styles.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/v/dt/dt-1.13.5/datatables.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="<?= base_url() ?>/assets/css/bootstrap.min.css">
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -149,6 +150,7 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="<?= base_url() ?>/assets/js/bootstrap.bundle.min.js"></script>
     <script src="<?= base_url() ?>assets/js/scripts.js"></script>
+    <script src="https://cdn.datatables.net/v/dt/dt-1.13.5/datatables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $.ajaxSetup({

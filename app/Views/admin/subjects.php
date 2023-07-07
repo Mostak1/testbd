@@ -2,49 +2,61 @@
 
 <?= $this->section('content') ?>
 <h1 class="mt-4">Subjects Management</h1>
-
+<?= WRITEPATH ?>
 <hr>
 <div class="d-flex justify-content-end">
     <span>
-        <i class="bi bi-plus-square" id="showFormBtn"></i>
+
+        <span class="btn btn-outline-warning" id="showFormBtn"><i class="bi bi-plus-square"></i>Add</span>
     </span>
 </div>
+<!-- Form For Edit and Add -->
 <div class="form-container">
     <?= csrf_field() ?>
-    <input type="hidden" id="id" value="">
-    <div class="form-group">
-        <label class="form-label">Subject</label>
-        <input class="form-control" type="text" name="subject" id="subject">
-    </div>
-    <div class="form-group">
-        <label class="form-label">Class</label>
-        <input class="form-control" type="text" name="class" id="class">
-    </div>
-    <div class="form-group">
-        <label class="form-label">Image</label>
-        <input class="form-control" type="text" name="image" id="image">
-    </div>
-    <div class="form-group">
-        <label class="form-label">Quantity</label>
-        <input class="form-control" type="number" name="q" id="q">
-    </div>
-    <div class="form-group">
-        <label class="form-label">Price</label>
-        <input class="form-control" type="number" name="p" id="p">
-    </div>
-    <div class="form-group">
-        <label class="form-label">Discount</label>
-        <input class="form-control" type="number" name="d" id="d">
-    </div>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="hidden" id="id" value="">
+        <div class="form-group">
+            <label class="form-label">Subject</label>
+            <input class="form-control" type="text" name="subject" id="subject">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Class</label>
+            <input class="form-control" type="text" name="class" id="class">
+        </div>
+        <div class="form-group row">
+            <div class="col">
 
-    <div class="form-group my-2">
-        <input type="button" class="btn btn-outline-primary" value="ADD" id="addBtn">
-        <input type="button" class="btn btn-outline-danger" value="Clear" id="clearBtn">
-    </div>
+                <label class="form-label">Image Name</label>
+                <input class="form-control" type="text" name="img_name" id="img_name">
+            </div>
+            <div class="col">
+                <label class="form-label">Image</label>
+                <input class="form-control" type="file" name="image" id="image">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Quantity</label>
+            <input class="form-control" type="number" name="q" id="q">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Price</label>
+            <input class="form-control" type="number" name="p" id="p">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Discount</label>
+            <input class="form-control" type="number" name="d" id="d">
+        </div>
 
+        <div class="form-group my-2">
+            <input type="button" class="btn btn-outline-primary" value="ADD" id="addBtn">
+            <input type="button" class="btn btn-outline-danger" value="Clear" id="clearBtn">
+        </div>
+    </form>
     <br>
 
 </div>
+<!-- Form For Add and Edit End-->
+
 <table class="table table-striped table-hover table-sm">
     <thead>
         <tr>
@@ -85,7 +97,6 @@
             $("#d").val("");
 
             $("#id").val("");
-            $("#addBtn").val('Add');
             $(".form-container").hide(1500);
         }
         //clearform end
@@ -95,32 +106,47 @@
         })
         //clearBtn end
 
-        // addBtn
+        // add and update
 
         $("#addBtn").click(function() {
-            $.post("<?= site_url("admin/subject/new") ?>", {
-                id: $("#id").val(),
-                subject: $("#subject").val(),
-                class: $("#class").val(),
-                image: $("#image").val(),
-                q: $("#q").val(),
-                p: $("#p").val(),
-                d: $("#d").val(),
-                'action': "insert"
-            }, function(d) {
-                if (d.success) {
-                    Swal.fire(
-                        'Good job!',
-                        d.message,
-                        'success'
-                    ).then(() => {
-                        loaddata();
-                    })
-                }
+            // alert("Please enter")
+            var formData = new FormData();
 
-            })
+            formData.append('id', $("#id").val());
+            formData.append('subject', $("#subject").val());
+            formData.append('class', $("#class").val());
+            formData.append('q', $("#q").val());
+            formData.append('p', $("#p").val());
+            formData.append('d', $("#d").val());
+            formData.append('action', 'insert');
+
+            if ($('#image')[0].files[0]) {
+                var newImage = $('#image')[0].files[0];
+                formData.append('image', newImage);
+                formData.append('i', $("#img_name").val());
+            }
+
+            $.ajax({
+                url: "<?= site_url("admin/subject/new") ?>",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(d) {
+                    if (d.success) {
+                        Swal.fire(
+                            'Good job!',
+                            d.message,
+                            'success'
+                        ).then(() => {
+                            loaddata();
+                        });
+                    }
+                }
+            });
         });
-        // addBtn end
+        // add and update end
+
         function showdata(d) {
             // console.log(d);
             $html = ``;
@@ -137,7 +163,7 @@
                 $html += `<td class='d'>${row.discount}</td>`;
                 $html += `<td>${row.created_at}</td>`;
 
-                $html += `<td><a href='javascript:void(0)' class='editBtn' data-id='${row.id}'><i class="bi bi-pencil-square"></i></a><a href='javascript:void(0)' class='deleteBtn' data-id='${row.id}'><i class="bi bi-trash-fill"></i></a></td>`;
+                $html += `<td><a href='javascript:void(0)' class='editBtn btn btn-outline-primary me-2' data-id='${row.id}'><i class="bi bi-pencil-square"></i></a><a href='javascript:void(0)' class='deleteBtn btn btn-outline-danger' data-id='${row.id}'><i class="bi bi-trash-fill"></i></a></td>`;
                 $html += `</tr>`;
             });
             $("#maindata").html($html);
@@ -166,7 +192,7 @@
             let d = $t.parent().parent().find('.d').html();
             $("#subject").val(subject);
             $("#class").val(cls);
-            $("#image").val(img);
+            $("#img_name").val(img);
             $("#q").val(q);
             $("#p").val(p);
             $("#d").val(d);

@@ -60,7 +60,7 @@ class SubjectsController extends BaseController
         return $this->respond($data, 200);
     }
 
-    public function create()
+    public function create1()
     {
         $request = request();
         //return $this->respond($_POST,200);
@@ -72,7 +72,7 @@ class SubjectsController extends BaseController
             'price' => $request->getPost('p'),
             'discount' => $request->getPost('d'),
         ];
-        // `quantity`, `price`, `discount`
+        //`quantity`, `price`, `discount`
         if ($request->getPost('id') != "") {
             $data['id'] = $request->getPost('id');
         }
@@ -85,6 +85,42 @@ class SubjectsController extends BaseController
         return $this->respond([
             'success' => true,
             'message' => "Data Inserted Successfully"
+        ], 200);
+    }
+
+    public function create()
+    {
+        $request = $this->request;
+
+        // // Handle file upload
+        if ($request->getFile('image') != "") {
+            $uploadedFile = $request->getFile('image');
+            $imgname = $request->getPost('i');
+            $extension = $uploadedFile->getExtension();
+            $newName = $imgname . '.' . $extension;
+            $uploadedFile->move('assets/HSC', $newName);
+            $data['images'] = $newName;
+        }
+
+        // Get other form data
+        $data['subject'] = $request->getPost('subject');
+        $data['class'] = $request->getPost('class');
+        $data['quantity'] = $request->getPost('q');
+        $data['price'] = $request->getPost('p');
+        $data['discount'] = $request->getPost('d');
+
+        // Insert data into the database
+        // $this->db->table('subjects')->insert($data);
+        if ($request->getPost('id') != "") {
+            $data['id'] = $request->getPost('id');
+        }
+
+        $builder = $this->db->table('subjects');
+        $builder->upsert($data);
+        // Return the response
+        return $this->respond([
+            'success' => true,
+            'message' => 'Data Inserted Successfully'
         ], 200);
     }
 
