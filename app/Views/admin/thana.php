@@ -42,7 +42,7 @@
     <br>
 
 </div>
-<table class="table table-striped table-hover table-sm">
+<table id="myTable" class="table table-striped table-hover table-sm display">
     <thead>
         <tr>
             <th>ID</th>
@@ -64,6 +64,7 @@
 <?= $this->section('script') ?>
 <script>
     $(document).ready(function() {
+        $('#myTable').DataTable();
         $(".form-container").hide();
         $("#showFormBtn").click(function() {
             $(".form-container").toggle(300);

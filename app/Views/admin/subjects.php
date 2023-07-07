@@ -57,7 +57,7 @@
 </div>
 <!-- Form For Add and Edit End-->
 
-<table class="table table-striped table-hover table-sm">
+<table id="myTable" class="table table-striped table-hover table-sm">
     <thead>
         <tr>
             <th>ID</th>
@@ -82,6 +82,7 @@
 <?= $this->section('script') ?>
 <script>
     $(document).ready(function() {
+        $('#myTable').DataTable();
         $(".form-container").hide();
         $("#showFormBtn").click(function() {
             $(".form-container").toggle(300);
