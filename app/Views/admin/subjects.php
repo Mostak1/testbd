@@ -2,7 +2,7 @@
 
 <?= $this->section('content') ?>
 <h1 class="mt-4">Subjects Management</h1>
-<?= WRITEPATH ?>
+<?= FCPATH ?>
 <hr>
 <div class="d-flex justify-content-end">
     <span>
@@ -92,7 +92,7 @@
         function clearform() {
             $("#subject").val("");
             $("#class").val("");
-            $("#image").val("");
+            $("#img_name").val("");
             $("#q").val("");
             $("#p").val("");
             $("#d").val("");

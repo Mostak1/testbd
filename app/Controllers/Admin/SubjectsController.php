@@ -93,11 +93,21 @@ class SubjectsController extends BaseController
         $request = $this->request;
 
         // // Handle file upload
+
         if ($request->getFile('image') != "") {
             $uploadedFile = $request->getFile('image');
             $imgname = $request->getPost('i');
             $extension = $uploadedFile->getExtension();
             $newName = $imgname . '.' . $extension;
+            // $filePath = FCPATH . 'assets/HSC/' . $newName;
+
+            // if (file_exists($filePath)) {
+            //     unlink($filePath);
+            //     return true;
+            // } else {
+            //     // File does not exist
+            //     return false;
+            // }
             $uploadedFile->move('assets/HSC', $newName);
             $data['images'] = $newName;
         }

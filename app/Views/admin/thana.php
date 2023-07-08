@@ -11,7 +11,7 @@
 </div>
 <div class="form-container">
     <?= csrf_field() ?>
-    <input type="hidden" id="id" value="">
+    <input type="text" id="id" value="" hidden>
     <div class="form-group">
         <label class="form-label">District</label>
         <select class="form-select" name="district_id" id="district_id">
@@ -42,11 +42,14 @@
     <br>
 
 </div>
-<table id="myTable" class="table table-striped table-hover table-sm display">
+<table id="myTable" class="display">
     <thead>
         <tr>
+            <th colspan="6" class="tablebtn">
+            </th>
+        </tr>
+        <tr>
             <th>ID</th>
-            <th class="d-none">District id</th>
             <th>District</th>
             <th>Thana</th>
             <th>Thana(bangla)</th>
@@ -57,14 +60,78 @@
     <tbody id="maindata">
 
     </tbody>
-
 </table>
 <img src="" height="200px" alt="">
 <?= $this->endSection() ?>
 <?= $this->section('script') ?>
 <script>
     $(document).ready(function() {
-        $('#myTable').DataTable();
+        // using DataTable 
+
+        var table = $('#myTable').DataTable({
+
+            ajax: {
+                url: '<?= base_url(); ?>admin/thana/all',
+                dataSrc: ''
+            },
+            columns: [{
+                    data: 'id'
+                },
+                {
+                    data: 'd_name',
+
+                },
+                {
+                    data: 'name',
+                    render: function(data, type, row) {
+                        var className = 'name';
+                        var value = data;
+
+                        return `<span class="${className}">${value}</span>`;
+                    }
+                },
+                {
+                    data: 'bn_name',
+                    render: function(data, type, row) {
+                        var className = 'bn_name';
+                        var value = data;
+
+                        return `<span class="${className}">${value}</span>`;
+                    }
+                },
+                {
+                    data: 'url',
+                    render: function(data, type, row) {
+                        var className = 'url link-info';
+                        var value = data;
+
+                        return `<a href="${value}" class="${className}" target="_blank">${value}</a>`;
+                    }
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return `<a href='javascript:void(0)' class='editBtn' data-did="${row.district_id}" data-id='${row.id}'><i class="bi bi-pencil-square"></i></a>
+                        <a href='javascript:void(0)' class='deleteBtn' data-id='${row.id}'><i class="bi bi-trash-fill"></i></a>`;
+                    }
+                }
+            ]
+        });
+        new $.fn.dataTable.Buttons(table, {
+            buttons: [
+                'copy', 'excel', 'pdf', 'print'
+            ]
+        });
+        table.buttons().container().appendTo($('.tablebtn', table.table().container()));
+        $('.tablebtn .dt-buttons').removeClass('flex-wrap');
+        $('.tablebtn .btn').removeClass('btn-secondary').addClass('btn-outline-primary');
+
+
+
+        // $('#myTable').DataTable();
+        // using DataTable 
+
+
         $(".form-container").hide();
         $("#showFormBtn").click(function() {
             $(".form-container").toggle(300);
@@ -110,6 +177,7 @@
                 }
 
             })
+            table.ajax.reload();
         });
         // addBtn end
         function showdata(d) {
@@ -129,7 +197,7 @@
                 $html += `<td><a href='javascript:void(0)' class='editBtn' data-id='${row.id}'><i class="bi bi-pencil-square"></i></a><a href='javascript:void(0)' class='deleteBtn' data-id='${row.id}'><i class="bi bi-trash-fill"></i></a></td>`;
                 $html += `</tr>`;
             });
-            $("#maindata").html($html);
+            // $("#maindata").html($html);
 
 
         }
@@ -147,7 +215,8 @@
         $("#maindata").on("click", ".editBtn", function() {
             $t = $(this);
             $id = $t.data("id");
-            let district_id = $t.parent().parent().find('.district_id').html();
+            // let district_id = $t.parent().parent().find('.district_id').val();
+            let district_id = $t.data("did");
             let name = $t.parent().parent().find('.name').html();
             let bn_name = $t.parent().parent().find('.bn_name').html();
             let url = $t.parent().parent().find('.url').html();
@@ -197,6 +266,8 @@
                 } else if (result.isDenied) {
                     Swal.fire('Changes are not saved', '', 'info')
                 }
+                table.ajax.reload();
+
             })
             // swal end
         });
